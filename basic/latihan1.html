@@ -19,13 +19,8 @@
     <div id="app">
         <header>
             <img src="image/vue_logo.png" width="80">
-            <h1>{{"1 + 1 = " + (1+1)}}</h1>
-            <h1>{{"2 * 2 = " + (2*2)}}</h1>
-            <h1>{{name + ' Okay'}}</h1>
-            <!-- Pakai method javascript -->
-            <h1>{{name.toUpperCase()}}</h1>
-            <!-- v-once agar variable di dalam tag tidak bisa diubah -->
-            <h1 v-once>{{is_active ? "success" : "failed"}}</h1>
+            <h1>{{ name }}</h1>
+            <h1>{{ getname() }}</h1>
             <p>The Progressive
                 JavaScript Framework
             </p>
@@ -46,6 +41,11 @@
         const vm = new Vue({
             el: '#app',
             data: member,
+            methods: {
+                getname: function() {
+                    return 'Hello, ' + this.name
+                }
+            }
         })
     </script>
 </body>
