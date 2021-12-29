@@ -19,7 +19,6 @@
     <div id="app">
         <header>
             <img src="image/vue_logo.png" width="80">
-            <h1>{{ name }}</h1>
             <h1>{{ getname() }}</h1>
             <p>The Progressive
                 JavaScript Framework
@@ -44,6 +43,9 @@
             methods: {
                 getname: function() {
                     return 'Hello, ' + this.name
+                },
+                ubahNama: function(namaBaru) {
+                    this.name = namaBaru
                 }
             }
         })
