@@ -31,8 +31,14 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script>
+        const member = {
+                // string, number, boolean, array, object
+                name: 'doremifasolasido',
+                pesan: 'Hello World!'
+            }
         const vm = new Vue({
-            el: '#app'
+            el: '#app',
+            data: member,
         })
     </script>
 </body>
