@@ -20,6 +20,7 @@
         <header>
             <img src="image/vue_logo.png" width="80">
             <h1>{{ getname() }}</h1>
+            <h1>{{ namaLengkap }}</h1>
             <p>The Progressive
                 JavaScript Framework
             </p>
@@ -36,6 +37,9 @@
                 name: 'Doremi Fasolasido',
                 pesan: 'Hello World!',
                 is_active: true,
+                qty: 3,
+                namaDepan: 'Aldi ',
+                namaBelakang: 'Majid'
             }
         const vm = new Vue({
             el: '#app',
@@ -46,6 +50,14 @@
                 },
                 ubahNama: function(namaBaru) {
                     this.name = namaBaru
+                }
+            },
+            computed: {
+                totalBayar: function(){
+                    return this.qty * 10000
+                },
+                namaLengkap: function(){
+                    return this.namaDepan + this.namaBelakang
                 }
             }
         })
