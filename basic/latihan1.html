@@ -19,9 +19,8 @@
     <div id="app">
         <header>
             <img src="image/vue_logo.png" width="80">
-            <h1>{{ getname() }}</h1>
-            <h1>{{ namaLengkap }}</h1>
-            <h1>{{ bilangan }}</h1>
+            <h1 v-text="name"></h1>
+            <h1 v-html="link"></h1>
             <p>Bilangan ini adalah {{ isGenapOrGanjil }}</p>
             <p>The Progressive
                 JavaScript Framework
@@ -43,6 +42,7 @@
                 namaDepan: 'Aldi ',
                 namaBelakang: 'Majid',
                 bilangan: 8,
+                link: '<a href= "">kelas.balademy</a>'
             }
         const vm = new Vue({
             el: '#app',
