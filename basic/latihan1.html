@@ -20,6 +20,11 @@
         <header>
             <img src="image/vue_logo.png" width="80">
             <h1 v-text="name"></h1>
+            <h1>Bilangan: {{bilangan}}</h1>
+            <p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
+            <p>
+                <button v-on:click="handleClick">Ditekan</button>
+            </p>
             <img v-bind:src="gambar" alt="">
             <p>The Progressive
                 JavaScript Framework
@@ -40,7 +45,7 @@
                 qty: 3,
                 namaDepan: 'Aldi ',
                 namaBelakang: 'Majid',
-                bilangan: 8,
+                bilangan: 0,
                 link: '<a href= "">kelas.balademy</a>',
                 gambar: 'image/red_haired_pirate_logo.png'
             }
@@ -53,6 +58,10 @@
                 },
                 ubahNama: function(namaBaru) {
                     this.name = namaBaru
+                },
+                handleClick: function(){
+                    this.bilangan++
+                    this.gambar = 'image/beast_pirate_logo.jpeg'
                 }
             },
             computed: {
@@ -62,7 +71,7 @@
                 namaLengkap: function(){
                     return this.namaDepan + this.namaBelakang
                 },
-                isGenapOrGanjil: function(){
+                infoBilangan: function(){
                     return this.bilangan%2 === 0 ? "Genap" : "Ganjil"
                 }
             }
