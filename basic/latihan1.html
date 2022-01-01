@@ -49,8 +49,15 @@
             </div>
 
             <ul>
-                <li v-for="item in kelas" v-text="item"></li>
+                <!-- Disini bisa di ganti dengan keyword "of" -->
+                <!-- Disini kita bisa mengakses index pada v-for -->
+                <li v-for="(item, index) of kelas">{{ index + 1 }} - {{ item }}</li>
             </ul>
+
+            <ul>
+                <li v-for="x in 5">
+                    {{ x }}
+                </li></ul>
 
             <button v-bind:class="{active: menu === 'home'}" v-on:click= "menu = 'home'">Home</button>
             <button v-bind:class="{active: menu === 'about'}" v-on:click= "menu = 'about'">About</button>
