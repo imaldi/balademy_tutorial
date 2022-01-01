@@ -26,11 +26,21 @@
         <header>
             <img src="image/vue_logo.png" width="80">
             <h1 v-text="name"></h1>
+            <!-- Ini two way data binding, keren (v-model) -->
+            <p><input type="text" v-model="name"></p>
+
+            <p>{{ kelas }}</p>
+
+            <div>
+                <label><input type="checkbox" value="React" v-model="kelas"> React</label>
+                <label><input type="checkbox" value="Vue js" v-model="kelas"> Vue js</label>
+                <label><input type="checkbox" value="Angular" v-model="kelas"> Angular</label>
+            </div>
             <h1>Bilangan: {{bilangan}}</h1>
             <p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
             <p>
-                <button v-on:click="handleClick">Ditekan</button>
-                <button @click="handleClick">Ditekan</button>
+                <button v-on:click="handleClickPositive">Add Number</button>
+                <button @click="handleClickNegative">Substract Number</button>
             </p>
             <img v-bind:src="logoSaatIni" width="500">
             <p>The Progressive
@@ -60,6 +70,7 @@
                 link: '<a href= "">kelas.balademy</a>',
                 gambar: 'image/red_haired_pirate_logo.png',
                 menu: 'home',
+                kelas: []
             }
         const vm = new Vue({
             el: '#app',
@@ -71,10 +82,14 @@
                 ubahNama: function(namaBaru) {
                     this.name = namaBaru
                 },
-                handleClick: function(){
+                handleClickPositive: function(){
                     this.bilangan++
-                    this.gambar = 'image/beast_pirate_logo.jpeg'
-                }
+                    // this.gambar = 'image/beast_pirate_logo.jpeg'
+                },
+                handleClickNegative: function(){
+                    this.bilangan--
+                    // this.gambar = 'image/beast_pirate_logo.jpeg'
+                },
             },
             computed: {
                 totalBayar: function(){
