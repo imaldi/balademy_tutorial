@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -19,8 +20,9 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 </head>
+
 <body>
-    
+
 
     <div id="app">
         <header>
@@ -57,13 +59,21 @@
             <ul>
                 <li v-for="x in 5">
                     {{ x }}
-                </li></ul>
+                </li>
+            </ul>
 
-            <button v-bind:class="{active: menu === 'home'}" v-on:click= "menu = 'home'">Home</button>
-            <button v-bind:class="{active: menu === 'about'}" v-on:click= "menu = 'about'">About</button>
-            <button v-bind:class="{active: menu === 'blog'}" v-on:click= "menu = 'blog'">Blog</button>
+            <h3>Mencari Bilangan Genap: {{ numbers }}</h3>
+            <ul>
+                <li v-for="x in cariBilanganGenap(numbers)">
+                    {{ x }}
+                </li>
+            </ul>
+
+            <button v-bind:class="{active: menu === 'home'}" v-on:click="menu = 'home'">Home</button>
+            <button v-bind:class="{active: menu === 'about'}" v-on:click="menu = 'about'">About</button>
+            <button v-bind:class="{active: menu === 'blog'}" v-on:click="menu = 'blog'">Blog</button>
         </header>
-    
+
         <footer id="footer">
             <p>copyright 2021</p>
         </footer>
@@ -71,53 +81,60 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script>
         const member = {
-                // string, number, boolean, array, object
-                name: 'Doremi Fasolasido',
-                pesan: 'Hello World!',
-                is_active: true,
-                qty: 3,
-                namaDepan: 'Aldi ',
-                namaBelakang: 'Majid',
-                bilangan: 0,
-                link: '<a href= "">kelas.balademy</a>',
-                gambar: 'image/red_haired_pirate_logo.png',
-                menu: 'home',
-                kelas: []
-            }
+            // string, number, boolean, array, object
+            name: 'Doremi Fasolasido',
+            pesan: 'Hello World!',
+            is_active: true,
+            qty: 3,
+            namaDepan: 'Aldi ',
+            namaBelakang: 'Majid',
+            bilangan: 0,
+            link: '<a href= "">kelas.balademy</a>',
+            gambar: 'image/red_haired_pirate_logo.png',
+            menu: 'home',
+            kelas: [],
+            numbers: [1, 2, 3, 4, 5]
+        }
         const vm = new Vue({
             el: '#app',
             data: member,
             methods: {
-                getname: function() {
+                getname: function () {
                     return 'Hello, ' + this.name
                 },
-                ubahNama: function(namaBaru) {
+                ubahNama: function (namaBaru) {
                     this.name = namaBaru
                 },
-                handleClickPositive: function(){
+                handleClickPositive: function () {
                     this.bilangan++
                     // this.gambar = 'image/beast_pirate_logo.jpeg'
                 },
-                handleClickNegative: function(){
+                handleClickNegative: function () {
                     this.bilangan--
                     // this.gambar = 'image/beast_pirate_logo.jpeg'
                 },
+                cariBilanganGenap: (data) => {
+                    return data.filter(angka => {
+                        return angka % 2 == 0
+                    })
+                }
             },
             computed: {
-                totalBayar: function(){
+                totalBayar: function () {
                     return this.qty * 10000
                 },
-                namaLengkap: function(){
+                namaLengkap: function () {
                     return this.namaDepan + this.namaBelakang
                 },
-                infoBilangan: function(){
-                    return this.bilangan%2 === 0 ? "Genap" : "Ganjil"
+                infoBilangan: function () {
+                    return this.bilangan % 2 === 0 ? "Genap" : "Ganjil"
                 },
-                logoSaatIni: function(){
-                    return this.bilangan%2 === 0 ? "image/red_haired_pirate_logo.png" : "image/beast_pirate_logo.jpeg"
+                logoSaatIni: function () {
+                    return this.bilangan % 2 === 0 ? "image/red_haired_pirate_logo.png" : "image/beast_pirate_logo.jpeg"
                 }
             }
         })
     </script>
 </body>
+
 </html>
