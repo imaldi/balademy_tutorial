@@ -42,7 +42,8 @@
                 JavaScript Framework
             </p>
 
-            <p>{{ kelas }}</p>
+            <p v-if="kelas.length >= 1">{{ kelas }}</p>
+            <p v-else>Kelas Belum Tersedia</p>
 
             <div>
                 <label><input type="checkbox" value="React" v-model="kelas"> React</label>
