@@ -29,13 +29,6 @@
             <!-- Ini two way data binding, keren (v-model) -->
             <p><input type="text" v-model="name"></p>
 
-            <p>{{ kelas }}</p>
-
-            <div>
-                <label><input type="checkbox" value="React" v-model="kelas"> React</label>
-                <label><input type="checkbox" value="Vue js" v-model="kelas"> Vue js</label>
-                <label><input type="checkbox" value="Angular" v-model="kelas"> Angular</label>
-            </div>
             <h1>Bilangan: {{bilangan}}</h1>
             <p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
             <p>
@@ -46,6 +39,18 @@
             <p>The Progressive
                 JavaScript Framework
             </p>
+
+            <p>{{ kelas }}</p>
+
+            <div>
+                <label><input type="checkbox" value="React" v-model="kelas"> React</label>
+                <label><input type="checkbox" value="Vue js" v-model="kelas"> Vue js</label>
+                <label><input type="checkbox" value="Angular" v-model="kelas"> Angular</label>
+            </div>
+
+            <ul>
+                <li v-for="item in kelas" v-text="item"></li>
+            </ul>
 
             <button v-bind:class="{active: menu === 'home'}" v-on:click= "menu = 'home'">Home</button>
             <button v-bind:class="{active: menu === 'about'}" v-on:click= "menu = 'about'">About</button>
