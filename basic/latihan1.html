@@ -32,14 +32,14 @@
                 <button v-on:click="handleClick">Ditekan</button>
                 <button @click="handleClick">Ditekan</button>
             </p>
-            <img v-bind:src="gambar" width="500">
+            <img v-bind:src="logoSaatIni" width="500">
             <p>The Progressive
                 JavaScript Framework
             </p>
 
-            <button class="active">Home</button>
-            <button>About</button>
-            <button>Blog</button>
+            <button v-bind:class="{active: menu === 'home'}" v-on:click= "menu = 'home'">Home</button>
+            <button v-bind:class="{active: menu === 'about'}" v-on:click= "menu = 'about'">About</button>
+            <button v-bind:class="{active: menu === 'blog'}" v-on:click= "menu = 'blog'">Blog</button>
         </header>
     
         <footer id="footer">
@@ -58,7 +58,8 @@
                 namaBelakang: 'Majid',
                 bilangan: 0,
                 link: '<a href= "">kelas.balademy</a>',
-                gambar: 'image/red_haired_pirate_logo.png'
+                gambar: 'image/red_haired_pirate_logo.png',
+                menu: 'home',
             }
         const vm = new Vue({
             el: '#app',
@@ -84,6 +85,9 @@
                 },
                 infoBilangan: function(){
                     return this.bilangan%2 === 0 ? "Genap" : "Ganjil"
+                },
+                logoSaatIni: function(){
+                    return this.bilangan%2 === 0 ? "image/red_haired_pirate_logo.png" : "image/beast_pirate_logo.jpeg"
                 }
             }
         })
