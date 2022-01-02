@@ -26,15 +26,16 @@
     <header>
       <img src="image/vue_logo.png" width="80">
       <h1 v-text="name"></h1>
-      <!-- Ini two way data binding, keren (v-model) -->
-      <p><input type="text" v-model="name"></p>
+      
+      <h3>Form Submit.</h3>
+      <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasBaru"></p>
       <h1>Bilangan: {{bilangan}}</h1>
       <p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
       <p>
         <button v-on:click="handleClickPositive">Add Number</button>
         <button @click="handleClickNegative">Substract Number</button>
       </p>
-      <img v-bind:src="logoSaatIni" width="500">
+      <!-- <img v-bind:src="logoSaatIni" width="500"> -->
       <p>The Progressive
         JavaScript Framework
       </p>
@@ -50,7 +51,7 @@
         <label><input type="checkbox" value="Angular" v-model="kelas"> Angular</label>
       </div>
       <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
-      <template v-if="kelas.length > 1">
+      <template v-if="kelas.length > 0">
         <ul>
           <!-- Disini bisa di ganti dengan keyword "of" -->
           <!-- Disini kita bisa mengakses index pada v-for -->
@@ -90,8 +91,9 @@
       link: '<a href= "">kelas.balademy</a>',
       gambar: 'image/red_haired_pirate_logo.png',
       menu: 'home',
-      kelas: [],
-      numbers: [1, 2, 3, 4, 5]
+      kelas: ["Golang","PHP"],
+      numbers: [1, 2, 3, 4, 5],
+      kelasBaru: "",
     }
     const vm = new Vue({
       el: '#app',
@@ -121,6 +123,13 @@
           // event.preventDefault()
           // console.log(event)
           this.menu = menu
+        },
+        submit: function () {
+          console.log(this.kelasBaru)
+          this.kelas.push(this.kelasBaru) // untuk memasukkan data dari index terakhir array
+          // this.kelas.unshift(text) // untuk memasukkan data dari index pertama array
+          // event.target.value = ""
+          this.kelasBaru = ""
         }
       },
       computed: {
