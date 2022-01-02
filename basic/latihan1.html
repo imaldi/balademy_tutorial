@@ -2,154 +2,137 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 5%;
-            font-family: 'Quicksand', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 5%;
+      font-family: 'Quicksand', sans-serif;
+    }
 
-        .active {
-            background: salmon;
-            border: 0;
-            padding: 5px;
-        }
-    </style>
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    .active {
+      background: salmon;
+      border: 0;
+      padding: 5px;
+    }
+  </style>
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 </head>
 
 <body>
-
-
-    <div id="app">
-        <header>
-            <img src="image/vue_logo.png" width="80">
-            <h1 v-text="name"></h1>
-            <!-- Ini two way data binding, keren (v-model) -->
-            <p><input type="text" v-model="name"></p>
-
-            <h1>Bilangan: {{bilangan}}</h1>
-            <p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
-            <p>
-                <button v-on:click="handleClickPositive">Add Number</button>
-                <button @click="handleClickNegative">Substract Number</button>
-            </p>
-            <img v-bind:src="logoSaatIni" width="500">
-            <p>The Progressive
-                JavaScript Framework
-            </p>
-
-
-
-            <!-- v-if benar2 menghapus dari struktur html -->
-            <p v-if="kelas.length >= 1">{{ kelas }}</p>
-            <p v-else>Kelas Belum Tersedia</p>
-
-            <!-- v-show hanya memberi style="display: none" 
+  <div id="app">
+    <header>
+      <img src="image/vue_logo.png" width="80">
+      <h1 v-text="name"></h1>
+      <!-- Ini two way data binding, keren (v-model) -->
+      <p><input type="text" v-model="name"></p>
+      <h1>Bilangan: {{bilangan}}</h1>
+      <p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
+      <p>
+        <button v-on:click="handleClickPositive">Add Number</button>
+        <button @click="handleClickNegative">Substract Number</button>
+      </p>
+      <img v-bind:src="logoSaatIni" width="500">
+      <p>The Progressive
+        JavaScript Framework
+      </p>
+      <!-- v-if benar2 menghapus dari struktur html -->
+      <p v-if="kelas.length >= 1">{{ kelas }}</p>
+      <p v-else>Kelas Belum Tersedia</p>
+      <!-- v-show hanya memberi style="display: none" 
                 pada tag html jika kondisi tidak terpenuhi -->
-            <p v-show="kelas.length >= 1">v-show tampil</p>
-            
-
-
-            <div>
-                <label><input type="checkbox" value="React" v-model="kelas"> React</label>
-                <label><input type="checkbox" value="Vue js" v-model="kelas"> Vue js</label>
-                <label><input type="checkbox" value="Angular" v-model="kelas"> Angular</label>
-            </div>
-            
-            <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
-<template v-if="kelas.length > 1">
-  
-
-            <ul>
-                <!-- Disini bisa di ganti dengan keyword "of" -->
-                <!-- Disini kita bisa mengakses index pada v-for -->
-                <li v-for="(item, index) of kelas">{{ index + 1 }} - {{ item }}</li>
-            </ul>
-            </template>
-
-            <ul>
-                <li v-for="x in 5">
-                    {{ x }}
-                </li>
-            </ul>
-
-            <h3>Mencari Bilangan Genap: {{ numbers }}</h3>
-            <ul>
-                <li v-for="x in cariBilanganGenap(numbers)">
-                    {{ x }}
-                </li>
-            </ul>
-
-            <button v-bind:class="{active: menu === 'home'}" v-on:click="menu = 'home'">Home</button>
-            <button v-bind:class="{active: menu === 'about'}" v-on:click="menu = 'about'">About</button>
-            <button v-bind:class="{active: menu === 'blog'}" v-on:click="menu = 'blog'">Blog</button>
-        </header>
-
-        <footer id="footer">
-            <p>copyright 2021</p>
-        </footer>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script>
-        const member = {
-            // string, number, boolean, array, object
-            name: 'Doremi Fasolasido',
-            pesan: 'Hello World!',
-            is_active: true,
-            qty: 3,
-            namaDepan: 'Aldi ',
-            namaBelakang: 'Majid',
-            bilangan: 0,
-            link: '<a href= "">kelas.balademy</a>',
-            gambar: 'image/red_haired_pirate_logo.png',
-            menu: 'home',
-            kelas: [],
-            numbers: [1, 2, 3, 4, 5]
+      <p v-show="kelas.length >= 1">v-show tampil</p>
+      <div>
+        <label><input type="checkbox" value="React" v-model="kelas"> React</label>
+        <label><input type="checkbox" value="Vue js" v-model="kelas"> Vue js</label>
+        <label><input type="checkbox" value="Angular" v-model="kelas"> Angular</label>
+      </div>
+      <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
+      <template v-if="kelas.length > 1">
+        <ul>
+          <!-- Disini bisa di ganti dengan keyword "of" -->
+          <!-- Disini kita bisa mengakses index pada v-for -->
+          <li v-for="(item, index) of kelas">{{ index + 1 }} - {{ item }}</li>
+        </ul>
+      </template>
+      <ul>
+        <li v-for="x in 5">
+          {{ x }}
+        </li
+      </ul>
+      <h3>Mencari Bilangan Genap: {{ numbers }}</h3>
+      <ul>
+        <li v-for="x in cariBilanganGenap(numbers)">
+          {{ x }}
+        </li>
+      </ul>
+      <button v-bind:class="{active: menu === 'home'}" v-on:click="menu = 'home'">Home</button>
+      <button v-bind:class="{active: menu === 'about'}" v-on:click="menu = 'about'">About</button>
+      <button v-bind:class="{active: menu === 'blog'}" v-on:click="menu = 'blog'">Blog</button>
+    </header>
+    <footer id="footer">
+      <p>copyright 2021</p>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    const member = {
+      // string, number, boolean, array, object
+      name: 'Doremi Fasolasido',
+      pesan: 'Hello World!',
+      is_active: true,
+      qty: 3,
+      namaDepan: 'Aldi ',
+      namaBelakang: 'Majid',
+      bilangan: 0,
+      link: '<a href= "">kelas.balademy</a>',
+      gambar: 'image/red_haired_pirate_logo.png',
+      menu: 'home',
+      kelas: [],
+      numbers: [1, 2, 3, 4, 5]
+    }
+    const vm = new Vue({
+      el: '#app',
+      data: member,
+      methods: {
+        getname: function() {
+          return 'Hello, ' + this.name
+        },
+        ubahNama: function(namaBaru) {
+          this.name = namaBaru
+        },
+        handleClickPositive: function() {
+          this.bilangan++
+          // this.gambar = 'image/beast_pirate_logo.jpeg'
+        },
+        handleClickNegative: function() {
+          this.bilangan--
+          // this.gambar = 'image/beast_pirate_logo.jpeg'
+        },
+        cariBilanganGenap: (data) => {
+          return data.filter(angka => {
+            return angka % 2 == 0
+          })
         }
-        const vm = new Vue({
-            el: '#app',
-            data: member,
-            methods: {
-                getname: function () {
-                    return 'Hello, ' + this.name
-                },
-                ubahNama: function (namaBaru) {
-                    this.name = namaBaru
-                },
-                handleClickPositive: function () {
-                    this.bilangan++
-                    // this.gambar = 'image/beast_pirate_logo.jpeg'
-                },
-                handleClickNegative: function () {
-                    this.bilangan--
-                    // this.gambar = 'image/beast_pirate_logo.jpeg'
-                },
-                cariBilanganGenap: (data) => {
-                    return data.filter(angka => {
-                        return angka % 2 == 0
-                    })
-                }
-            },
-            computed: {
-                totalBayar: function () {
-                    return this.qty * 10000
-                },
-                namaLengkap: function () {
-                    return this.namaDepan + this.namaBelakang
-                },
-                infoBilangan: function () {
-                    return this.bilangan % 2 === 0 ? "Genap" : "Ganjil"
-                },
-                logoSaatIni: function () {
-                    return this.bilangan % 2 === 0 ? "image/red_haired_pirate_logo.png" : "image/beast_pirate_logo.jpeg"
-                }
-            }
-        })
-    </script>
+      },
+      computed: {
+        totalBayar: function() {
+          return this.qty * 10000
+        },
+        namaLengkap: function() {
+          return this.namaDepan + this.namaBelakang
+        },
+        infoBilangan: function() {
+          return this.bilangan % 2 === 0 ? "Genap" : "Ganjil"
+        },
+        logoSaatIni: function() {
+          return this.bilangan % 2 === 0 ? "image/red_haired_pirate_logo.png" : "image/beast_pirate_logo.jpeg"
+        }
+      }
+    })
+  </script>
 </body>
 
 </html>
