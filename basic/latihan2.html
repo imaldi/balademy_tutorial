@@ -57,9 +57,16 @@
                 <p>The Progressive
                     JavaScript Framework
                 </p>
+                <p v-text="pesan">
+                </p>
             
             </header>
-          `
+          `,
+          data: function(){
+              return {
+                  pesan: 'Hello Component!'
+              }
+          }
       })
 
       Vue.component('footer-component',{
