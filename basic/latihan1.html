@@ -42,13 +42,16 @@
                 JavaScript Framework
             </p>
 
+
+
             <!-- v-if benar2 menghapus dari struktur html -->
             <p v-if="kelas.length >= 1">{{ kelas }}</p>
             <p v-else>Kelas Belum Tersedia</p>
 
             <!-- v-show hanya memberi style="display: none" 
                 pada tag html jika kondisi tidak terpenuhi -->
-            <p v-if="kelas.length >= 1">v-show tampil</p>
+            <p v-show="kelas.length >= 1">v-show tampil</p>
+            
 
 
             <div>
@@ -56,12 +59,17 @@
                 <label><input type="checkbox" value="Vue js" v-model="kelas"> Vue js</label>
                 <label><input type="checkbox" value="Angular" v-model="kelas"> Angular</label>
             </div>
+            
+            <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
+<template v-if="kelas.length > 1">
+  
 
             <ul>
                 <!-- Disini bisa di ganti dengan keyword "of" -->
                 <!-- Disini kita bisa mengakses index pada v-for -->
                 <li v-for="(item, index) of kelas">{{ index + 1 }} - {{ item }}</li>
             </ul>
+            </template>
 
             <ul>
                 <li v-for="x in 5">
