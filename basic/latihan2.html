@@ -23,31 +23,21 @@
 
 <body>
   <div id="app">
-    
-    <header-component></header-component>
-    <main>
-        <h3>Tambah Kelas.</h3>
-      <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasBaru"></p>
-      <hr>
-      <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
-      
-      <h3>Daftar Kelas ({{kelas.length}})</h3>
-      <template v-if="kelas.length > 0">
-        <ul>
-          <!-- Disini bisa di ganti dengan keyword "of" -->
-          <!-- Disini kita bisa mengakses index pada v-for -->
-          <li v-for="(item, index) of kelas">{{ index + 1 }} - {{ item }}</li>
-        </ul>
-      </template>
-    </main>
 
+    <header-component></header-component>
+
+
+    <main>
+      <kelas />
+    </main>
     <footer-component></footer-component>
-    
+
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script>
-      Vue.component('header-component',{
-          template: `
+    //   Mendaftarkan component harus sebelum deklarasi instance Vue nya
+    Vue.component('header-component', {
+      template: `
             <header>
                 <img src="image/vue_logo.png" width="100">
                 <h1 v-text="name"></h1>
@@ -62,29 +52,47 @@
             
             </header>
           `,
-          data: function(){
-              return {
-                  pesan: 'Hello Component!'
-              }
-          }
-      })
+      data: function () {
+        return {
+          pesan: 'Hello Component!'
+        }
+      }
+    })
 
-      Vue.component('footer-component',{
-          template: `
+    Vue.component('footer-component', {
+      template: `
             <footer id="footer">
                 <p>copyright 2021 - kelas Aldi Majid</p>
             </footer>
           `
-      })
-    const member = {
-      // string, number, boolean, array, object
-      kelas: ["Golang","PHP"],
-      kelasBaru: "",
-    }
-    const vm = new Vue({
-      el: '#app',
-      data: member,
-      methods: {
+    })
+
+    Vue.component('kelas', {
+      template: `
+          <div>
+            <h3>Tambah Kelas.</h3>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasBaru"></p>
+            <hr>
+            <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
+            
+            <h3>Daftar Kelas ({{kelas.length}})</h3>
+            <template v-if="kelas.length > 0">
+              <ul>
+                <!-- Disini bisa di ganti dengan keyword "of" -->
+                <!-- Disini kita bisa mengakses index pada v-for -->
+                <li v-for="(item, index) of kelas">{{ index + 1 }} - {{ item }}</li>
+              </ul>
+            </template>
+          </div>
+        `,
+      data: function () {
+        return {
+          // string, number, boolean, array, object
+          kelas: ["Golang", "PHP"],
+          kelasBaru: "",
+        }
+      },
+      methods:{
         submit: function () {
           console.log(this.kelasBaru)
           this.kelas.push(this.kelasBaru) // untuk memasukkan data dari index terakhir array
@@ -92,6 +100,16 @@
           // event.target.value = ""
           this.kelasBaru = ""
         }
+      }
+    })
+    const member = {
+
+    }
+    const vm = new Vue({
+      el: '#app',
+      data: member,
+      methods: {
+        
       },
       computed: {
       }
