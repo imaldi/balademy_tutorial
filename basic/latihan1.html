@@ -68,9 +68,9 @@
           {{ x }}
         </li>
       </ul>
-      <a v-bind:class="{active: menu === 'home'}" href="#" v-on:click="gantiMenu('home', $event)">Home</a>
-      <a v-bind:class="{active: menu === 'about'}" href="#" v-on:click="gantiMenu('about', $event)">About</a>
-      <a v-bind:class="{active: menu === 'blog'}" href="#" v-on:click="gantiMenu('blog', $event)">Blog</a>
+      <a v-bind:class="{active: menu === 'home'}" href="#" v-on:click.prevent="gantiMenu('home')">Home</a>
+      <a v-bind:class="{active: menu === 'about'}" href="#" v-on:click.prevent="gantiMenu('about')">About</a>
+      <a v-bind:class="{active: menu === 'blog'}" href="#" v-on:click.prevent="gantiMenu('blog')">Blog</a>
     </header>
     <footer id="footer">
       <p>copyright 2021</p>
@@ -116,9 +116,10 @@
             return angka % 2 == 0
           })
         },
-        gantiMenu: function(menu, event) {
-          event.preventDefault()
-          console.log(event)
+        gantiMenu: function(menu) {
+          // ini penulisan Java Script, dengan Event Modifier dari Vue, jadi lebih singkat dan elegan
+          // event.preventDefault()
+          // console.log(event)
           this.menu = menu
         }
       },
