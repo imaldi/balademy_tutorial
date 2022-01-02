@@ -68,9 +68,9 @@
           {{ x }}
         </li>
       </ul>
-      <button v-bind:class="{active: menu === 'home'}" v-on:click="menu = 'home'">Home</button>
-      <button v-bind:class="{active: menu === 'about'}" v-on:click="menu = 'about'">About</button>
-      <button v-bind:class="{active: menu === 'blog'}" v-on:click="menu = 'blog'">Blog</button>
+      <a v-bind:class="{active: menu === 'home'}" href="#" v-on:click="gantiMenu('home', $event)">Home</a>
+      <a v-bind:class="{active: menu === 'about'}" href="#" v-on:click="gantiMenu('about', $event)">About</a>
+      <a v-bind:class="{active: menu === 'blog'}" href="#" v-on:click="gantiMenu('blog', $event)">Blog</a>
     </header>
     <footer id="footer">
       <p>copyright 2021</p>
@@ -115,6 +115,11 @@
           return data.filter(angka => {
             return angka % 2 == 0
           })
+        },
+        gantiMenu: function(menu, event) {
+          event.preventDefault()
+          console.log(event)
+          this.menu = menu
         }
       },
       computed: {
