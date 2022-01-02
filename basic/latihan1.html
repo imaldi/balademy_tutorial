@@ -42,8 +42,14 @@
                 JavaScript Framework
             </p>
 
+            <!-- v-if benar2 menghapus dari struktur html -->
             <p v-if="kelas.length >= 1">{{ kelas }}</p>
             <p v-else>Kelas Belum Tersedia</p>
+
+            <!-- v-show hanya memberi style="display: none" 
+                pada tag html jika kondisi tidak terpenuhi -->
+            <p v-if="kelas.length >= 1">v-show tampil</p>
+
 
             <div>
                 <label><input type="checkbox" value="React" v-model="kelas"> React</label>
