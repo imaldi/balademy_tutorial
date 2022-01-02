@@ -24,7 +24,9 @@
 <body>
   <div id="app">
 
-    <header-component></header-component>
+    <!-- Component bisa digunakan berulang, simple nya seperti custom html tag buatan sendiri -->
+    <header-component nama="Vue js" gambar="image/vue_logo.png"></header-component>
+    <header-component nama="JavaScript" gambar="image/red_haired_pirate_logo.png"></header-component>
 
 
     <main>
@@ -37,10 +39,12 @@
   <script>
     //   Mendaftarkan component harus sebelum deklarasi instance Vue nya
     Vue.component('header-component', {
+      props: ["nama","gambar"],
       template: `
             <header>
-                <img src="image/vue_logo.png" width="100">
-                <h1 v-text="name"></h1>
+                <img :src="gambar" width="100">
+                <h1 v-text="nama"></h1>
+                <h1>{{"Hello, " + nama}}</h1>
                 
                 
                 <!-- <img v-bind:src="logoSaatIni" width="500"> -->
