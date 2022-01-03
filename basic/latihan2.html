@@ -30,13 +30,17 @@
 
 
     <main>
-      <kelas v-bind:kelasProp="kelas" :kelasBaruProp="kelasBaru"/>
+      <kelas v-bind:kelasProp="kelas" :kelasBaruProp="kelasBaru"></kelas>
+      <home></home>
     </main>
     <footer-component></footer-component>
 
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script>
+    const Home = {
+      template: `<div>Home</div>`
+    }
     //   Mendaftarkan component harus sebelum deklarasi instance Vue nya
     Vue.component('header-component', {
       props: ["nama","gambar"],
@@ -112,6 +116,9 @@
     }
     const vm = new Vue({
       el: '#app',
+      component: {
+        'home': Home,
+      },
       data: member,
       methods: {
         
