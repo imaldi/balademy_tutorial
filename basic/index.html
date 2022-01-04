@@ -76,8 +76,8 @@
               <ul>
                 <!-- Disini bisa di ganti dengan keyword "of" -->
                 <!-- Disini kita bisa mengakses index pada v-for -->
-                <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item }}
-                  <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
+                <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item.judul }}
+                  <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">hapus</a>
                 </li>
               </ul>
             </template>
@@ -118,36 +118,7 @@
           `
     })
 
-    // TODO delete this after one commit after this
-    // Vue.component('kelas', {
-    //   props: ["kelasprop"],
-    //   template: `
-    //       <div>
-    //         <h3>Tambah Kelas.</h3>
-    //         <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="$emit('submitkelas', $event)"></p>
-    //         <hr>
-    //         <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
-
-    //         <h3>Daftar Kelas ({{kelasprop.length}})</h3>
-    //         <template v-if="kelasprop.length > 0">
-    //           <ul>
-    //             <!-- Disini bisa di ganti dengan keyword "of" -->
-    //             <!-- Disini kita bisa mengakses index pada v-for -->
-    //             <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item }}
-    //               <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
-    //             </li>
-    //           </ul>
-    //         </template>
-    //       </div>
-    //     `,
-    //   data: function () {
-    //     return {
-
-    //     }
-    //   },
-    //   methods:{
-    //   }
-    // })
+    
 
     // 2. Define some routes
     // Each route should map to a component. The "component" can
@@ -169,11 +140,11 @@
     })
     const member = {
       // string, number, boolean, array, object
-      kelas: ["Golang", "PHP"],
-      // kelas: [
-      //   { id: 1, judul: 'Vuejs', deskripsi: 'The Prjlknkja', gambar: 'vue_logo.png' },
-      //   { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'react_logo.png' },
-      // ]
+    //   kelas: ["Golang", "PHP"],
+      kelas: [
+        { id: 1, judul: 'Vuejs', deskripsi: 'The Prjlknkja', gambar: 'vue_logo.png' },
+        { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'react_logo.png' },
+      ]
     }
     const vm = new Vue({
       el: '#app',
@@ -184,9 +155,8 @@
       },
       data: member,
       methods: {
-        hapuskelas: function (index) {
-          console.log(index)
-          this.kelas.splice(index, 1)
+        hapuskelas: function (id) {
+            this.kelas = this.kelas.filter(item => item.id != id)
         },
         submitkelas: function (event) {
           console.log(event)
