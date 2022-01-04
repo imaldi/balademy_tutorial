@@ -26,26 +26,66 @@
 
     <!-- Component bisa digunakan berulang, simple nya seperti custom html tag buatan sendiri -->
     <header-component nama="Vue js" gambar="image/vue_logo.png"></header-component>
-    <header-component nama="JavaScript" gambar="image/red_haired_pirate_logo.png"></header-component>
+    <!-- <header-component nama="JavaScript" gambar="image/red_haired_pirate_logo.png"></header-component> -->
 
+    <nav>
+      <!-- use router-link component for navigation. -->
+      <!-- specify the link by passing the `to` prop. -->
+      <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+      <router-link to="/kelas">Kelas</router-link>
+    </nav>
 
     <main>
-      <kelas v-bind:kelasprop="kelas" v-on:submitkelas="submitkelas" v-on:hapuskelas="hapuskelas"></kelas>
-      <home></home>
+      <!-- <kelas v-bind:kelasprop="kelas" v-on:submitkelas="submitkelas" v-on:hapuskelas="hapuskelas"></kelas>
+      <home></home> -->
+      <!-- route outlet -->
+      <!-- component matched by the route will render here -->
+      <router-view v-bind:kelasprop="kelas" v-on:submitkelas="submitkelas" v-on:hapuskelas="hapuskelas"></router-view>
     </main>
     <footer-component>
       <p>copyright 2021 - kelas Aldi Majid</p>
     </footer-component>
 
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+  <script src="../vue_file/vue.js"></script>
+  <script src="../vue_file/vue-router.js"></script>
+
   <script>
     const Home = {
       template: '<div>Home</div>'
     }
+
+    const About = {
+      template: '<div>About</div>'
+    }
+    const Kelas = {
+      props: ["kelasprop"],
+      template: `
+          <div>
+            <h3>Tambah Kelas.</h3>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="$emit('submitkelas', $event)"></p>
+            <hr>
+            <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
+            
+            <h3>Daftar Kelas ({{kelasprop.length}})</h3>
+            <template v-if="kelasprop.length > 0">
+              <ul>
+                <!-- Disini bisa di ganti dengan keyword "of" -->
+                <!-- Disini kita bisa mengakses index pada v-for -->
+                <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item }}
+                  <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
+                </li>
+              </ul>
+            </template>
+          </div>
+        `
+    }
     //   Mendaftarkan component harus sebelum deklarasi instance Vue nya
     Vue.component('header-component', {
-      props: ["nama","gambar"],
+      props: ["nama", "gambar"],
       template: `
             <header>
                 <img :src="gambar" width="100">
@@ -77,51 +117,76 @@
           `
     })
 
-    Vue.component('kelas', {
-      props: ["kelasprop", "kelasbaruprop"],
-      template: `
-          <div>
-            <h3>Tambah Kelas.</h3>
-            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="$emit('submitkelas', $event)"></p>
-            <hr>
-            <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
-            
-            <h3>Daftar Kelas ({{kelasprop.length}})</h3>
-            <template v-if="kelasprop.length > 0">
-              <ul>
-                <!-- Disini bisa di ganti dengan keyword "of" -->
-                <!-- Disini kita bisa mengakses index pada v-for -->
-                <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item }}
-                  <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
-                </li>
-              </ul>
-            </template>
-          </div>
-        `,
-      data: function () {
-        return {
-          
-        }
-      },
-      methods:{
-      }
+    // TODO delete this after one commit after this
+    // Vue.component('kelas', {
+    //   props: ["kelasprop"],
+    //   template: `
+    //       <div>
+    //         <h3>Tambah Kelas.</h3>
+    //         <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="$emit('submitkelas', $event)"></p>
+    //         <hr>
+    //         <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
+
+    //         <h3>Daftar Kelas ({{kelasprop.length}})</h3>
+    //         <template v-if="kelasprop.length > 0">
+    //           <ul>
+    //             <!-- Disini bisa di ganti dengan keyword "of" -->
+    //             <!-- Disini kita bisa mengakses index pada v-for -->
+    //             <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item }}
+    //               <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
+    //             </li>
+    //           </ul>
+    //         </template>
+    //       </div>
+    //     `,
+    //   data: function () {
+    //     return {
+
+    //     }
+    //   },
+    //   methods:{
+    //   }
+    // })
+
+    // 2. Define some routes
+    // Each route should map to a component. The "component" can
+    // either be an actual component constructor created via
+    // `Vue.extend()`, or just a component options object.
+    // We'll talk about nested routes later.
+    const routes = [
+      { path: '/', component: Home },
+      { path: '/about', component: About },
+      { path: '/kelas', component: Kelas }
+    ]
+
+    // 3. Create the router instance and pass the `routes` option
+    // You can pass in additional options here, but let's
+    // keep it simple for now.
+    const router = new VueRouter({
+      routes // short for `routes: routes`
     })
     const member = {
       // string, number, boolean, array, object
       kelas: ["Golang", "PHP"],
+      // kelas: [
+      //   { id: 1, judul: 'Vuejs', deskripsi: 'The Prjlknkja', gambar: 'vue_logo.png' },
+      //   { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'react_logo.png' },
+      // ]
     }
     const vm = new Vue({
       el: '#app',
+      router,
       components: {
         'home': Home,
+        'kelas': Kelas,
       },
       data: member,
       methods: {
-        hapuskelas: function(index){
+        hapuskelas: function (index) {
           console.log(index)
           this.kelas.splice(index, 1)
         },
-        submitkelas: function(event){
+        submitkelas: function (event) {
           console.log(event)
           const text = event.target.value
           this.kelas.unshift(text)
