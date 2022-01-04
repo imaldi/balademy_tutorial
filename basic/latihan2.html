@@ -30,7 +30,7 @@
 
 
     <main>
-      <kelas v-bind:kelasprop="kelas" v-bind:kelasbaruprop="kelasBaru"></kelas>
+      <kelas v-bind:kelasprop="kelas" v-bind:kelasbaruprop="kelasBaru" v-on:hapuskelas="hapuskelas"></kelas>
       <home></home>
     </main>
     <footer-component></footer-component>
@@ -90,7 +90,7 @@
                 <!-- Disini bisa di ganti dengan keyword "of" -->
                 <!-- Disini kita bisa mengakses index pada v-for -->
                 <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item }}
-                  <a href="">hapus</a>
+                  <a href="" v-on:click.prevent="$emit('hapuskelas', index)">hapus</a>
                 </li>
               </ul>
             </template>
@@ -123,7 +123,10 @@
       },
       data: member,
       methods: {
-        
+        hapuskelas: function(index){
+          console.log(index)
+          this.kelas.splice(index, 1)
+        }
       },
       computed: {
       }
