@@ -30,7 +30,7 @@
 
 
     <main>
-      <kelas v-bind:kelasprop="kelas" v-bind:kelasbaruprop="kelasBaru" v-on:hapuskelas="hapuskelas"></kelas>
+      <kelas v-bind:kelasprop="kelas" v-on:submitkelas="submitkelas" v-on:hapuskelas="hapuskelas"></kelas>
       <home></home>
     </main>
     <footer-component></footer-component>
@@ -80,7 +80,7 @@
       template: `
           <div>
             <h3>Tambah Kelas.</h3>
-            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasbaruprop"></p>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="$emit('submitkelas', $event)"></p>
             <hr>
             <!-- Dengan tag template, kita bisa render beberapa item dengan v-if, seperti container pada flutter -->
             
@@ -102,19 +102,11 @@
         }
       },
       methods:{
-        submit: function () {
-          console.log(this.kelasBaru)
-          this.kelas.push(this.kelasBaru) // untuk memasukkan data dari index terakhir array
-          // this.kelas.unshift(text) // untuk memasukkan data dari index pertama array
-          // event.target.value = ""
-          this.kelasBaru = ""
-        }
       }
     })
     const member = {
       // string, number, boolean, array, object
       kelas: ["Golang", "PHP"],
-      kelasBaru: "",
     }
     const vm = new Vue({
       el: '#app',
@@ -126,6 +118,11 @@
         hapuskelas: function(index){
           console.log(index)
           this.kelas.splice(index, 1)
+        },
+        submitkelas: function(event){
+          console.log(event)
+          const text = event.target.value
+          this.kelas.unshift(text)
         }
       },
       computed: {
