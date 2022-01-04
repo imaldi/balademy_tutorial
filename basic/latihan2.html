@@ -33,7 +33,9 @@
       <kelas v-bind:kelasprop="kelas" v-on:submitkelas="submitkelas" v-on:hapuskelas="hapuskelas"></kelas>
       <home></home>
     </main>
-    <footer-component></footer-component>
+    <footer-component>
+      <p>copyright 2021 - kelas Aldi Majid</p>
+    </footer-component>
 
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
@@ -70,7 +72,7 @@
     Vue.component('footer-component', {
       template: `
             <footer id="footer">
-                <p>copyright 2021 - kelas Aldi Majid</p>
+              <slot></slot>
             </footer>
           `
     })
