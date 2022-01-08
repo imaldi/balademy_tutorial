@@ -256,7 +256,8 @@
     }
 
     const vm = new Vue({
-      el: '#app',
+      // Misal el kita hapus, pakai $mount setelah init Vue
+      // el: '#app',
       router,
       components: {
         'home': Home,
@@ -269,6 +270,16 @@
         // Javascript memang aneh... 
         // pakai OR utk ngisi data kalau null, kalau dart null check dan OR beda
         this.kelas = JSON.parse(localStorage.getItem('kelas')) || []
+        console.log("created called")
+      },
+      mounted(){
+        console.log("mounted called")
+      },
+      beforeCreate(){
+        console.log("beforeCreate called")
+      },
+      updated(){
+        console.log("updated called")
       },
       methods: {
         hapuskelas: function (id) {
@@ -309,6 +320,7 @@
       computed: {
       }
     })
+    vm.$mount("#app")
   </script>
 </body>
 
