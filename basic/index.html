@@ -78,14 +78,16 @@
                 <p><input type="text" placeholder="Nama Kelas" v-model="kelas.judul"></p>
         
                 <div class="input-group">
-                    <label>Deskrips: </label> <br>
+                    <label>Deskripsi: </label> <br>
                     <textarea v-model="kelas.deskripsi"></textarea>
                 </div>
             
                 <div class="input-group">
                     <img :src="previewimg" v-if="previewimg" width="200"/><p/>
                     <label>Masukkan Gambar</label><br>
-                    <input type="file" v-on:change="upload"/>
+
+                    <!-- property ref untuk reset judul gambar di <img> -->
+                    <input type="file" ref="gambar" v-on:change="upload"/>
                 </div>
                 <button type="submit">Submit</button>
             </form>
@@ -132,6 +134,10 @@
                 this.$emit('submitkelas', data)
                 this.kelas.judul = ""
                 this.kelas.deskripsi = ""
+                this.kelas.gambar = ""
+                this.previewimg = ""
+                // untuk reset judul gambar di <img>
+                this.$refs.gambar.value = ""
             },
             upload: function(event) {
               const name = event.target.files[0].name
