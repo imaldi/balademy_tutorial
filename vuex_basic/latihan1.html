@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
     <title>Document</title>
     <style>
         body {
@@ -13,17 +16,14 @@
 
 <body>
     <div id="app">
-        <h1>{{ title }}</h1>
+        <h1>{{ $store.state.count }}</h1>
         <p>State Management Pattern</p>
+        <button @click="increment">Hitung</button>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="https://unpkg.com/vuex@3.6.2/dist/vuex.js"></script>
 <script>
-    import Vue from 'vue'
-    import Vuex from 'vuex'
-
-    Vue.use(Vuex)
 
     const store = new Vuex.Store({
         state: {
@@ -31,18 +31,23 @@
             count: 1
         },
         mutations: {
-            increment(state) {
-                state.count++
-            }
+            // increment(state) {
+            //     state.count++
+            // }
         }
     })
 
     new Vue({
         el: '#app',
         data: {
-            
+
         },
-        store
+        store,
+        methods: {
+            increment(){
+                this.$store.state.count++
+            }
+        },
     })
 </script>
 
