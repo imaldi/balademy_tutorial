@@ -132,6 +132,8 @@
                 this.$emit('submitkelas', data)
                 this.kelas.judul = ""
                 this.kelas.deskripsi = ""
+                this.kelas.gambar = ""
+                this.previewimg = ""
             },
             upload: function(event) {
               const name = event.target.files[0].name
