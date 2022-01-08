@@ -244,11 +244,13 @@
     const member = {
       // string, number, boolean, array, object
       //   kelas: ["Golang", "PHP"],
-      kelas: [
-        { id: 1, judul: 'Vuejs', deskripsi: 'The Prjlknkja', gambar: 'vue_logo.png' },
-        { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'beast_pirate_logo.jpeg' },
-      ]
+      // kelas: [
+      //   { id: 1, judul: 'Vuejs', deskripsi: 'The Prjlknkja', gambar: 'vue_logo.png' },
+      //   { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'beast_pirate_logo.jpeg' },
+      // ]
+      kelas: []
     }
+
     const vm = new Vue({
       el: '#app',
       router,
@@ -257,6 +259,11 @@
         'kelas': Kelas,
       },
       data: member,
+
+      // tebakan sementara, ini seperti onCreate android (pokoknya lifecycle gitulah)
+      created(){
+        this.kelas = JSON.parse(localStorage.getItem('kelas')) || []
+      },
       methods: {
         hapuskelas: function (id) {
           this.kelas = this.kelas.filter(item => item.id != id)
