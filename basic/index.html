@@ -273,6 +273,18 @@
       methods: {
         hapuskelas: function (id) {
           this.kelas = this.kelas.filter(item => item.id != id)
+
+          // Supaya item di local storage terupdate ketika hapus data
+          localStorage.setItem('kelas', JSON.stringify(this.kelas))
+
+          swal(
+          {
+            title: "Success",
+            text: "Data berhasil dihapus.",
+            icon: "warning",
+            button: "Oke Boss"
+          }  
+          )
         },
         submitkelas: function (data) {
           //   console.log(data)
@@ -286,7 +298,7 @@
 
           swal(
           {
-            title: "Success",
+            title: data.judul,
             text: "Data berhasil disimpan.",
             icon: "success",
             button: "Oke Boss"
