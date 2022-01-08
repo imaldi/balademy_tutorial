@@ -266,6 +266,10 @@
           //   const text = event.target.value
           //   this.kelas.unshift(text)
           this.kelas.push(data)
+
+          // Local Storage // Tebakan sementara, ini semacam SP nya browser/web app
+          // Ubah dalam bentuk json dulu pakai JSON.stringify
+          localStorage.setItem('kelas', JSON.stringify(this.kelas))
         }
       },
       computed: {
