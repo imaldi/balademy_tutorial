@@ -16,6 +16,14 @@
       border: 0;
       padding: 5px;
     }
+
+    .error{
+      color: red
+    }
+
+    .input-group{
+      margin-bottom: 5px
+    }
   </style>
   <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
@@ -48,7 +56,7 @@
       <p>copyright 2021 - kelas Aldi Majid</p>
     </footer-component>
 
-    
+
 
 
   </div>
@@ -80,8 +88,11 @@
             <h3>Tambah Kelas.</h3>
             <!-- pakai .prevent supaya default "action" dari <form> tidak terpanggil -->
             <form v-on:submit.prevent="submitkelas">
-                <p><input type="text" placeholder="Nama Kelas" v-model="kelas.judul"></p>
-        
+                <div class="input-group">
+                  <input type="text" placeholder="Nama Kelas" v-model="kelas.judul">
+                  <div class="error" v-if="error.judul"><small>{{ error.judul }}</small></div>
+                </div>
+                
                 <div class="input-group">
                     <label>Deskripsi: </label> <br>
                     <textarea v-model="kelas.deskripsi"></textarea>
@@ -117,43 +128,52 @@
             </template>
           </div>
         `,
-        data: function(){
-            return {
-                kelas: {
-                    judul: '',
-                    deskripsi: '',
-                    gambar: '',
-                },
-                previewimg: '',
-            }
-        },
-        methods:{
-            submitkelas: function(){
-                console.log(this.kelas)
-                const data = {
-                    id: uuidv4(),
-                    judul: this.kelas.judul,
-                    deskripsi: this.kelas.deskripsi,
-                    gambar: this.kelas.gambar,
-                }
-                // Setiap kali method "submitkelas" ini terpanggil, maka event 'submitkelas'
-                // akan ter emit dengan membawa data di parameter ke 2, kelas yang me-listen
-                // event ini akan melakukan sesuatu sesuai dengan yang sudah di definisikan di
-                // kelas (komponen) yang me-listen tersebut.
-                this.$emit('submitkelas', data)
-                this.kelas.judul = ""
-                this.kelas.deskripsi = ""
-                this.kelas.gambar = ""
-                this.previewimg = ""
-                // untuk reset judul gambar di <img>
-                this.$refs.gambar.value = ""
-            },
-            upload: function(event) {
-              const name = event.target.files[0].name
-              this.kelas.gambar = name
-              this.previewimg = URL.createObjectURL(event.target.files[0])
-            }
+      data: function () {
+        return {
+          kelas: {
+            judul: '',
+            deskripsi: '',
+            gambar: '',
+          },
+          previewimg: '',
+          error: {
+            judul: '',
+            deskripsi: ''
+          }
         }
+      },
+      methods: {
+        submitkelas: function () {
+          if (this.kelas.judul == '') {
+            this.error.judul = 'Judul is required'
+            console.log(this.error.judul)
+          } else {
+            console.log(this.kelas)
+            const data = {
+              id: uuidv4(),
+              judul: this.kelas.judul,
+              deskripsi: this.kelas.deskripsi,
+              gambar: this.kelas.gambar,
+            }
+            // Setiap kali method "submitkelas" ini terpanggil, maka event 'submitkelas'
+            // akan ter emit dengan membawa data di parameter ke 2, kelas yang me-listen
+            // event ini akan melakukan sesuatu sesuai dengan yang sudah di definisikan di
+            // kelas (komponen) yang me-listen tersebut.
+            this.$emit('submitkelas', data)
+            this.kelas.judul = ""
+            this.kelas.deskripsi = ""
+            this.kelas.gambar = ""
+            this.previewimg = ""
+            // untuk reset judul gambar di <img>
+            this.$refs.gambar.value = ""
+          }
+        },
+        upload: function (event) {
+          const name = event.target.files[0].name
+          this.kelas.gambar = name
+          this.previewimg = URL.createObjectURL(event.target.files[0])
+        }
+      }
     }
     //   Mendaftarkan component harus sebelum deklarasi instance Vue nya
     Vue.component('header-component', {
@@ -189,7 +209,7 @@
           `
     })
 
-    
+
 
     // 2. Define some routes
     // Each route should map to a component. The "component" can
@@ -213,7 +233,7 @@
     })
     const member = {
       // string, number, boolean, array, object
-    //   kelas: ["Golang", "PHP"],
+      //   kelas: ["Golang", "PHP"],
       kelas: [
         { id: 1, judul: 'Vuejs', deskripsi: 'The Prjlknkja', gambar: 'vue_logo.png' },
         { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'beast_pirate_logo.jpeg' },
@@ -229,13 +249,13 @@
       data: member,
       methods: {
         hapuskelas: function (id) {
-            this.kelas = this.kelas.filter(item => item.id != id)
+          this.kelas = this.kelas.filter(item => item.id != id)
         },
         submitkelas: function (data) {
-        //   console.log(data)
-        //   const text = event.target.value
-        //   this.kelas.unshift(text)
-        this.kelas.push(data)
+          //   console.log(data)
+          //   const text = event.target.value
+          //   this.kelas.unshift(text)
+          this.kelas.push(data)
         }
       },
       computed: {
