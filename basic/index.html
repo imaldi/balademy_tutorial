@@ -96,6 +96,7 @@
                 <div class="input-group">
                     <label>Deskripsi: </label> <br>
                     <textarea v-model="kelas.deskripsi"></textarea>
+                  <div class="error" v-if="error.deskripsi"><small>{{ error.deskripsi }}</small></div>
                 </div>
             
                 <div class="input-group">
@@ -144,10 +145,19 @@
       },
       methods: {
         submitkelas: function () {
+          // Terlalu merepotkan, bisa nanti coba pakai plug in Vee Validate atau Vuelidate
+          this.error.judul = ""
+          this.error.deskripsi = ""
+
           if (this.kelas.judul == '') {
             this.error.judul = 'Judul is required'
-            console.log(this.error.judul)
-          } else {
+          } 
+          if(this.kelas.deskripsi == '') {
+            this.error.deskripsi = 'Deskripsi is required'
+          } 
+          
+          // JS memang aneh, padahal keduanya string, tapi bisa jadi boolean utk check "if"
+          if(this.kelas.judul && this.kelas.deskripsi){
             console.log(this.kelas)
             const data = {
               id: uuidv4(),
