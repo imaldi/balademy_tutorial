@@ -65,6 +65,10 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <!-- untuk generate uuid -->
   <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+  <!-- Sweet Alert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <!-- Ini Local File, ga tau cara supaya bisa ketika pakai vue router -->
   <!-- <script src="../vue_file/vue.js"></script>
   <script src="../vue_file/vue-router.js"></script> -->
 
@@ -260,8 +264,10 @@
       },
       data: member,
 
-      // tebakan sementara, ini seperti onCreate android (pokoknya lifecycle gitulah)
+      // tebakan sementara, ini seperti onCreate android (pokoknya lifecycle gitulah) // Benar uhuy
       created(){
+        // Javascript memang aneh... 
+        // pakai OR utk ngisi data kalau null, kalau dart null check dan OR beda
         this.kelas = JSON.parse(localStorage.getItem('kelas')) || []
       },
       methods: {
@@ -277,6 +283,15 @@
           // Local Storage // Tebakan sementara, ini semacam SP nya browser/web app
           // Ubah dalam bentuk json dulu pakai JSON.stringify
           localStorage.setItem('kelas', JSON.stringify(this.kelas))
+
+          swal(
+          {
+            title: "Success",
+            text: "Data berhasil disimpan.",
+            icon: "success",
+            button: "Oke Boss"
+          }  
+          )
         }
       },
       computed: {
