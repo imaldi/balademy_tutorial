@@ -68,6 +68,11 @@
     const About = {
       template: '<div>About</div>'
     }
+
+    const NotFound = {
+      template: '<div>Halaman Tidak Ditemukan</div>'
+    }
+
     const Kelas = {
       props: ["kelasprop"],
       template: `
@@ -194,7 +199,8 @@
     const routes = [
       { path: '/', component: Home },
       { path: '/about', component: About },
-      { path: '/kelas', component: Kelas }
+      { path: '/kelas', component: Kelas },
+      { path: '*', component: NotFound }
     ]
 
     // 3. Create the router instance and pass the `routes` option
