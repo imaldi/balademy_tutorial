@@ -101,8 +101,12 @@
               <ul>
                 <!-- Disini bisa di ganti dengan keyword "of" -->
                 <!-- Disini kita bisa mengakses index pada v-for -->
-                <li v-for="(item, index) of kelasprop">{{ index + 1 }} - {{ item.judul }}
-                  <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">hapus</a>
+                <li v-for="(item, index) of kelasprop">
+                  <img :src="'image/' + item.gambar" width="200">
+                  <p>
+                    {{ index + 1 }} - {{ item.judul }}
+                    <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">hapus</a>
+                  </p>
                 </li>
               </ul>
             </template>
@@ -206,7 +210,7 @@
     //   kelas: ["Golang", "PHP"],
       kelas: [
         { id: 1, judul: 'Vuejs', deskripsi: 'The Prjlknkja', gambar: 'vue_logo.png' },
-        { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'react_logo.png' },
+        { id: 2, judul: 'Reactjs', deskripsi: 'A Prjlknkja', gambar: 'beast_pirate_logo.jpeg' },
       ]
     }
     const vm = new Vue({
