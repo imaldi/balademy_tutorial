@@ -17,11 +17,11 @@
       padding: 5px;
     }
 
-    .error{
+    .error {
       color: red
     }
 
-    .input-group{
+    .input-group {
       margin-bottom: 5px
     }
   </style>
@@ -85,6 +85,35 @@
       template: '<div>Halaman Tidak Ditemukan</div>'
     }
 
+    const detailKelas = {
+      template: `<div>
+        <img :src="url_gambar(detailkelas.gambar)" width="200" />
+        <h3>{{ detailkelas.judul }} - {{ $route.params.id }}</h3>
+        <p>{{ detailkelas.deskripsi }}</p>
+        <router-link to="/kelas">kembali</router-link>
+        </div>`,
+      data() {
+        return {
+          detailkelas: {}
+        }
+      },
+      created() {
+        this.filterkelas()
+      },
+      methods: {
+        filterkelas() {
+          let kelas = JSON.parse(localStorage.getItem('kelas'))
+          let id = this.$route.params.id
+          let data = kelas.filter(k => k.id == id)
+          // Karena filter mereturn array, kita harus spesifik mengambil index yang keberapa
+          this.detailkelas = data[0]
+        },
+        url_gambar: function (gambar) {
+          return '../image/' + gambar
+        }
+      }
+    }
+
     const Kelas = {
       props: ["kelasprop"],
       template: `
@@ -123,10 +152,11 @@
                 <!-- Disini bisa di ganti dengan keyword "of" -->
                 <!-- Disini kita bisa mengakses index pada v-for -->
                 <li v-for="(item, index) of kelasprop">
-                  <img :src="'image/' + item.gambar" width="200">
+                  <img :src="url_gambar(item.gambar)" width="200">
                   <p>
                     {{ index + 1 }} - {{ item.judul }}
                     <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">hapus</a>
+                    <router-link :to="'/kelas/' + item.id">lihat kelas</router-link>
                   </p>
                 </li>
               </ul>
@@ -155,13 +185,13 @@
 
           if (this.kelas.judul == '') {
             this.error.judul = 'Judul is required'
-          } 
-          if(this.kelas.deskripsi == '') {
+          }
+          if (this.kelas.deskripsi == '') {
             this.error.deskripsi = 'Deskripsi is required'
-          } 
-          
+          }
+
           // JS memang aneh, padahal keduanya string, tapi bisa jadi boolean utk check "if"
-          if(this.kelas.judul && this.kelas.deskripsi){
+          if (this.kelas.judul && this.kelas.deskripsi) {
             console.log(this.kelas)
             const data = {
               id: uuidv4(),
@@ -186,6 +216,9 @@
           const name = event.target.files[0].name
           this.kelas.gambar = name
           this.previewimg = URL.createObjectURL(event.target.files[0])
+        },
+        url_gambar: function (gambar) {
+          return '/image/' + gambar
         }
       }
     }
@@ -234,6 +267,10 @@
       { path: '/', component: Home },
       { path: '/about', component: About },
       { path: '/kelas', component: Kelas },
+      {
+        path: '/kelas/:id',
+        component: detailKelas
+      },
       { path: '*', component: NotFound }
     ]
 
@@ -257,7 +294,7 @@
 
     const vm = new Vue({
       // Misal el kita hapus, pakai $mount setelah init Vue
-      // el: '#app',
+      el: '#app',
       router,
       components: {
         'home': Home,
@@ -266,19 +303,19 @@
       data: member,
 
       // tebakan sementara, ini seperti onCreate android (pokoknya lifecycle gitulah) // Benar uhuy
-      created(){
+      created() {
         // Javascript memang aneh... 
         // pakai OR utk ngisi data kalau null, kalau dart null check dan OR beda
         this.kelas = JSON.parse(localStorage.getItem('kelas')) || []
         console.log("created called")
       },
-      mounted(){
+      mounted() {
         console.log("mounted called")
       },
-      beforeCreate(){
+      beforeCreate() {
         console.log("beforeCreate called")
       },
-      updated(){
+      updated() {
         console.log("updated called")
       },
       methods: {
@@ -289,12 +326,12 @@
           localStorage.setItem('kelas', JSON.stringify(this.kelas))
 
           swal(
-          {
-            title: "Success",
-            text: "Data berhasil dihapus.",
-            icon: "warning",
-            button: "Oke Boss"
-          }  
+            {
+              title: "Success",
+              text: "Data berhasil dihapus.",
+              icon: "warning",
+              button: "Oke Boss"
+            }
           )
         },
         submitkelas: function (data) {
@@ -308,19 +345,19 @@
           localStorage.setItem('kelas', JSON.stringify(this.kelas))
 
           swal(
-          {
-            title: data.judul,
-            text: "Data berhasil disimpan.",
-            icon: "success",
-            button: "Oke Boss"
-          }  
+            {
+              title: data.judul,
+              text: "Data berhasil disimpan.",
+              icon: "success",
+              button: "Oke Boss"
+            }
           )
         }
       },
       computed: {
       }
     })
-    vm.$mount("#app")
+    // vm.$mount("#app")
   </script>
 </body>
 
